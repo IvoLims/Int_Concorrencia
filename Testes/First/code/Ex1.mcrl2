@@ -1,0 +1,48 @@
+sort 
+    Posicao = struct start | finish;
+
+%--------------------------------------------------------------------------------------
+act
+    avanca_lanterna: Int # Int;
+    tras_lanterna: Int;
+    avanca_aventureiro: Int # Int;
+    tras_aventureiro: Int;
+    avanca: Int # Int;
+    tras: Int;
+    frente_referee: Int # Int;
+    tras_referee: Int; 
+    report: Int;
+
+%--------------------------------------------------------------------------------------
+
+proc 
+    Aventureiro(vel: Int, p:Posicao) = 
+    (p == start) -> (sum s: Int . (s > vel)-> avanca_aventureiro(vel, s) . Aventureiro(vel,finish)
+                                              <> 
+                                              avanca_aventureiro(s, vel) . Aventureiro(vel,finish))
+                                              <>
+                                              tras_aventureiro(vel) . Aventureiro(vel,start);
+
+proc 
+    Flashlight(pos:Posicao) =
+    (pos == start) -> sum s,s': Int . avanca_lanterna(s,s') . Flashlight(finish)
+                      <>
+                      sum s: Int . tras_lanterna(s) . Flashlight(start);
+
+proc 
+     Referee(minutos:Int,n_acabou:Int) =
+     sum s,s': Int . frente_referee(s,s') . Referee(minutos+max(s,s'),n_acabou+2)
+     +
+     (n_acabou < 4) -> sum s: Int . tras_referee(s) . Referee(minutos + s, n_acabou-1)
+                                    <>
+                                    report(minutos) . Referee(minutos, n_acabou);
+
+System = 
+    allow({avanca,tras,report},
+        comm({avanca_aventureiro | avanca_lanterna | frente_referee -> avanca, tras_aventureiro | tras_lanterna | tras_referee -> tras},
+             Aventureiro(1,start) ||  Aventureiro(2,start) || Aventureiro(5,start) || Aventureiro(10,start)|| Flashlight(start) || Referee(0,0)
+    ));
+
+init
+      System
+;

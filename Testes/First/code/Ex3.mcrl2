@@ -1,0 +1,54 @@
+sort
+    Cor = struct Green | Red | Red_Yellow | Yellow;
+
+map
+    proxCor: Cor -> Cor;
+
+eqn
+    proxCor(Red) = Red_Yellow;
+    proxCor(Red_Yellow) = Green;
+    proxCor(Green) = Yellow;
+    proxCor(Yellow) = Red;
+
+%--------------------------------------------------------------------------------------
+act
+    change;
+    bloqGreen;
+    desbloqGreen;
+    changeGreen;
+    changeYellow;
+    desbloq;
+    bloq;
+    changeRed;
+    changeRed_Yellow;
+    priori1: Int;
+    priori2: Int;
+    priori3: Int;
+       
+%--------------------------------------------------------------------------------------
+       
+proc
+
+    TrafficLight(st : Cor, s : Int) =
+             (proxCor(st) == Green) -> priori2(s).changeGreen.TrafficLight(proxCor(st), s) 
+             + (proxCor(st) == Red) -> changeRed.TrafficLight(proxCor(st), s)
+             + (proxCor(st) == Red_Yellow) -> changeRed_Yellow.TrafficLight(proxCor(st), s)
+             + (proxCor(st) == Yellow) -> changeYellow.TrafficLight(proxCor(st), s);
+
+
+    Control (s : Int) = 
+              (s<2) -> priori3(s).bloqGreen.desbloqGreen.Control(s + 1)
+              +
+              (s==2) -> priori3(s).bloqGreen.desbloqGreen.Control(0);     
+
+
+    System = 
+        allow({change, desbloq, bloq, changeRed, changeRed_Yellow,priori1}, 
+            comm ({bloqGreen | changeGreen -> bloq, desbloqGreen | changeYellow -> desbloq, priori3 | priori2 -> priori1},
+                TrafficLight(Red, 0) || TrafficLight(Yellow, 1) || TrafficLight(Red, 2) || Control(0)
+        ));
+
+
+init
+      System
+;
