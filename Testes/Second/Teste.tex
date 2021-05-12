@@ -1,0 +1,123 @@
+
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc} % define o encoding usado texto fonte (input)--usual "utf8" ou "latin1
+\usepackage{graphicx} %permite incluir graficos, tabelas, figuras
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\definecolor{myblue}{rgb}{0.2,0.2,0.8}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstdefinestyle{code}{ 
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{white},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1000,                % start line enumeration with line 1
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\title{Interação e Concorrência (3º ano de Curso)\\
+       \textbf{Teste}\\ Resolução
+       } %Titulo do documento
+%\title{Um Exemplo de Artigo em \LaTeX}
+\author{ Ivo Lima\\ (A90214)
+       } %autores do documento
+\date{\today} %data
+
+\begin{document}
+	\begin{minipage}{0.9\linewidth}
+        \centering
+		\includegraphics[width=0.4\textwidth]{um.jpeg}\par\vspace{1cm}
+		{\scshape\LARGE Universidade do Minho} \par
+		\vspace{0.6cm}
+		{\scshape\Large Licenciatura em Ciências da Computação} \par
+		\maketitle
+	\end{minipage}
+
+
+\tableofcontents % insere Indice
+
+\chapter{Resolução das Questões}
+
+\section{Questão 1}
+
+\textbf{1.} 
+
+Aquando a avaliação da fórmula [[ ]] $\phi$ em E quero dizer que a mesma é válida se, para todos os estados F tais que F está relacionado com E', onde este E' é acedido (ou seja, todos os estados onde chego a partir de E) após uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis (que são ações através de $\tau$, ou se for nenhuma através de $\epsilon$), levando a que a fórmula $\phi$ tenha de ser válida em F. Portanto esta fórmula está a confirmar a veracidade das proposições nos estados a que posso alcançar (sendo estes os diversos universos de discurso ou diferentes módulos) e não naquele em que me encontro.
+
+Já na primeira fórmula a interpretação é quase a mesma, mas neste caso $\phi$ é válida se pelo menos um dos estados F tais que F está relacionado com E', onde este E' é acedido (ou seja, todos os estados onde chego a partir de E) após uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis (são ações através de $\tau$, ou se for nenhuma através de $\epsilon$).
+
+Passando a nossa análise para a fórmula seguinte que diz \textless\textless K\textgreater\textgreater $\phi$, tendemos a relacioná-la ou associá-la à primeira fórmula pois estas possuem o mesmo símbolo \textless\textless\textgreater\textgreater, sendo a única diferença o K interior portanto podemos presumir que neste caso podemos ter uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis (que são ações através de $\tau$, ou se for nenhuma através de $\epsilon$), esta pode ser seguida por uma ou nunhuma transição por \emph{K} e a seguir  uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis novamente, levando à autenticidade da fórmula $\phi$.
+\newpage
+De seguida temos a fórmula [[ K ]] $\phi$ que aplicando a mesma interpretação que fizemos anteriormente ao associar [[ ]] com a segunda fórmula podemos então dizer que podemos ter uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis (que são ações através de $\tau$, ou se for nenhuma através de $\epsilon$), seguido de pelo menos uma transição por K e por fim uma ou várias ou nenhuma quantidade arbitrária de comportamentos não observáveis, comprovando a veracidade da fórmula $\phi$.
+
+Por fim a fórmula [[$\downarrow$]] $\phi$ em E quer dizer que a mesma é válida se não existirem ciclos infinitos de ações internas, fazendo com que o subconjunto de ações não possuam transições $\tau$ ou se possuirem que seja um número de transições finitas, sendo portanto a 2º fórmula com uma restrição extra.
+
+\section{Questão 2}
+
+\textless\textless abac\textgreater\textgreater true: Poderam ou não existir ações não observáveis mas de seguida chegamos a um \textless abac\textgreater, podendo isto ser interpretado como a existência de pelo menos uma transição por \emph{"abac"} que verifique true, querendo com isto dizer que após a transição somos levados a um estado novo.
+
+[[ - ]] false: Existem ainda inicialmente as ações não observáveis mas depois de chegarmos a [ - ], isto quer dizer que o conjunto de todas as ações a que chego ou mais concretamente os estados verificam falso, mas aprendemos nenhum estado verifica falso o que leva à anulação da transição, fazendo com que a mesma não existe, apagando ou anulando também aquilo que lhe sucede. Sendo este muito semelhante a um \emph{deadlock}. 
+
+Exemplos.:
+
+I)
+
+$\tau$.$\tau$.$\tau$.a.b.a.c.$\tau$
+
+$\epsilon$.a.b.a.c.$\epsilon$ ou seja simplesmente acontecer a.b.a.c
+
+II)
+
+$\epsilon$
+
+$\tau$.$\tau$.$\tau$.$\tau$
+
+\section{Questão 3}
+
+Nenhuma das opções anteriores expressa corretamente aquilo que é dito, peguemos a titulo de exemplo na \emph{a}, isto quer dizer que vou chegar a um conjunto de ações que pelo menos uma transição que verifica true, ou seja cheguei a um estado novo e depois terei a tal situação de fazer \emph{a}, o problema aqui é que existe a possibilidade de fazer um grande e até mesmo um número infinito de ações não observáveis, levando a que o tal \emph{a} nunca ocorra. O contra-exemplo para a expressão \emph{b} segue o mesmo raciocínio. 
+
+Portanto para evitar que esse caso aconteça apenas temos de utilizar o último operador que foi explicado no exercício 1, o que resultará numa expressão do tipo  [[$\downarrow$]] $\phi$, onde $\phi$ = \textless\textless -\textgreater\textgreater true $\wedge$ [[-a]] false.
+
+\section{Questão 4}
+
+Penso que antes de seguirmos para a relação entre \emph{equivalência modal} e \emph{equivalência observável} deveriamos explicar um pouco aquilo que as mesmas representam e retratam.
+
+A equivalência modal surgiu graças à lógica modal que tem sido usada como uma ferramenta para raciocinar sobre os maios diveros tópicos. Embora a diversidade de aplicações estas têm algo importante em comum, as idéias-chave que empregam. Foi portanto surgindo ao logo do tempo linguagens modais proposicionais que oferecem uma notação \emph{pointfree} para falar sobre as estruturas relacionais, equipadas com operadores modais que procuram informações em estados acessíveis, onde a sua tradução padrão mapeia sistematicamente fórmulas modais para fórmulas de primeira ordem (numa variável livre) e torna a quantificação sobre estados acessíveis explícita.
+
+No caso da equivalência observável, se dois termos M e N são observacionalmente equivalentes estamos a dizer que em todos os contextos C (...) onde C (M) é um termo válido, o caso de C (N) também é válido e têm o mesmo valor. Não sendo possível a distinção entre os dois termos.
+
+Depois desta breve explicação sobre o que é uma \emph{equivalência modal} e \emph{equivalência observável}, podemos concluir que precisamos de fazer uma demonstração que se separam em dois passos:
+
+Pretendemos provar em primeiro lugar que $\equiv$' $\subseteq$ $\approx$.
+
+Depois tencionamos demonstrar que $\equiv$' $\supseteq$ $\approx$.
+
+\end{document}
